@@ -5,9 +5,16 @@ on:
     branches:
       - main  # or 'master' if that's your default branch
 
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
+    environment:
+      name: github-pages
 
     steps:
       - name: Checkout code
