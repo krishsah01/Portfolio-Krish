@@ -6,7 +6,7 @@ on:
       - main  # or 'master' if that's your default branch
 
 permissions:
-  contents: read
+  contents: write
   pages: write
   id-token: write
 
