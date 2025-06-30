@@ -3,6 +3,7 @@ import react from '@vitejs/plugin-react';
 
 export default defineConfig({
   plugins: [react()],
+  base: '/', // Since you're using a custom domain, the base should be '/'
   server: {
     port: 3000,
     open: true,

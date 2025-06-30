@@ -19,17 +19,14 @@ jobs:
           node-version: 20
 
       - name: Install dependencies
-        run: npm install --legacy-peer-deps
+        run: npm install
 
       - name: Build
-        run: |
-          npm run build
-        env:
-          # Set the base path for GitHub Pages (replace <USERNAME> and <REPO> accordingly)
-          VITE_BASE: /${{ github.event.repository.name }}/
+        run: npm run build
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./dist
+          cname: krishsah.me

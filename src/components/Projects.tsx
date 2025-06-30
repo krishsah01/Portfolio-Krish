@@ -31,7 +31,7 @@ const projects = [
   }
 ];
 
-const Projects = forwardRef<HTMLElement, ProjectsProps>((props, ref) => {
+const Projects = forwardRef<HTMLElement, ProjectsProps>((_props, ref) => {
   return (
     <section ref={ref} className="section relative" id="projects">
       {/* Decorative elements */}

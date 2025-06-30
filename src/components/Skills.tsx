@@ -15,9 +15,10 @@ const skills = [
     { name: 'Git', color: 'bg-red-500' },
 ];
 
-const Skills = forwardRef<HTMLElement, SkillsProps>((props, ref) => {
+const Skills = forwardRef<HTMLElement, SkillsProps>((_props, ref) => {
     return (
-        <section className="py-10">
+        <section ref={ref} className="py-10"
+            id="skills">
             <h2 className="text-3xl font-bold text-center mb-6">Skills</h2>
             <div className="flex flex-wrap justify-center">
                 {skills.map((skill) => (

@@ -29,7 +29,7 @@ const experiences = [
   }
 ];
 
-const Experience = forwardRef<HTMLElement, ExperienceProps>((props, ref) => {
+const Experience = forwardRef<HTMLElement, ExperienceProps>((_props, ref) => {
   return (
     <section ref={ref} className="section relative" id="experience">
       {/* Decorative elements */}

@@ -1,8 +1,7 @@
-import React, { forwardRef } from 'react';
+import { forwardRef } from 'react';
 import { motion } from 'framer-motion';
-import portrait from '../assets/portrait.jpg';
 
-const About = forwardRef<HTMLElement>((props, ref) => {
+const About = forwardRef<HTMLElement>((_props, ref) => {
   return (
     <section ref={ref} className="section relative" id="about">
       {/* Background design elements */}

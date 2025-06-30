@@ -5,7 +5,7 @@ import { FaPaperPlane, FaEnvelope, FaUser } from 'react-icons/fa';
 
 interface ContactProps {}
 
-const Contact = forwardRef<HTMLElement, ContactProps>((props, ref) => {
+const Contact = forwardRef<HTMLElement, ContactProps>((_props, ref) => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
