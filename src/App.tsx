@@ -6,7 +6,7 @@ import Projects from './components/Projects';
 import Experience from './components/Experience';
 import Skills from './components/Skills';
 import Contact from './components/Contact';
-import FluxVsSDXL from './components/FluxVsSDXL';
+import AiGuide from './components/AiGuide';
 
 const App = () => {
   const aboutRef = useRef<HTMLElement>(null);
@@ -14,7 +14,7 @@ const App = () => {
   const experienceRef = useRef<HTMLElement>(null);
   const skillsRef = useRef<HTMLElement>(null);
   const contactRef = useRef<HTMLElement>(null);
-  const fluxVsSDXLRef = useRef<HTMLElement>(null);
+  const aiGuideRef = useRef<HTMLElement>(null);
 
   const scrollToSection = (ref: React.RefObject<HTMLElement>) => {
     if (ref.current) {
@@ -35,7 +35,7 @@ const App = () => {
       <Experience ref={experienceRef} />
       <Skills ref={skillsRef} />
       <Contact ref={contactRef} />
-      <FluxVsSDXL ref={fluxVsSDXLRef} />
+      <AiGuide ref={aiGuideRef} />
     </Layout>
   );
 };
