@@ -6,6 +6,14 @@ interface ProjectsProps {}
 
 const projects = [
   {
+    title: 'GameHub - Interactive Gaming Platform',
+    description: 'A modern collection of classic games built with React and TypeScript. Features interactive gameplay for Snake, Tic-Tac-Toe, Wordle, Rock Paper Scissors, and Hangman with responsive design and smooth animations.',
+    image: 'https://images.unsplash.com/photo-1511512578047-dfb367046420?q=80&w=2071',
+    techStack: ['React', 'TypeScript', 'Tailwind CSS', 'Framer Motion'],
+    github: 'https://github.com/krishsah01/GameHub',
+    live: '#' // Will be updated with GitHub Pages link later
+  },
+  {
     title: 'Ocat – ORAS Simplified',
     description: 'A web application that simplifies the ORAS process, making container registry management more accessible.',
     image: 'https://images.unsplash.com/photo-1607799279861-4dd421887fb3?q=80&w=2070',
