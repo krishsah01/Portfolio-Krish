@@ -41,10 +41,10 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
                         transition={{ duration: 0.5, delay: 0.2 }}
                         className="hidden md:flex space-x-8"
                     >
-                        {['About', 'Projects', 'Experience', 'Skills', 'Contact', 'FLUX vs SDXL'].map((item) => (
+                        {['About', 'Projects', 'Experience', 'Skills', 'Contact', 'Research'].map((item) => (
   <a
     key={item}
-    href={`#${item === 'FLUX vs SDXL' ? 'flux-vs-sdxl' : item.toLowerCase()}`}
+    href={`#${item.toLowerCase()}`}
     className="text-gray-300 hover:text-white transition-colors"
   >
     {item}
