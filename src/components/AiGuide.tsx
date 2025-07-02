@@ -13,6 +13,16 @@ const SectionTitle = ({ children }: { children: React.ReactNode }) => (
   <h2 className="text-3xl font-bold text-center mb-8 text-white">{children}</h2>
 );
 
+const FlowNode = ({ children, className = '' }: { children: React.ReactNode; className?: string }) => (
+  <div className={`border-2 border-indigo-400 bg-slate-800 rounded-lg p-4 text-center shadow-lg w-full ${className}`}>
+    {children}
+  </div>
+);
+
+const ArrowDown = () => (
+  <div className="w-0 h-0 border-l-8 border-l-transparent border-r-8 border-r-transparent border-t-8 border-t-indigo-400 mx-auto my-4"></div>
+);
+
 const ComparisonTable = () => {
   const comparisonData = [
     { feature: 'Prompt Adherence', flux: '🏆 Superior', sdxl: 'Good', fluxClass: 'text-green-400' },
@@ -162,6 +172,149 @@ const AiPoweredTools = () => {
   );
 };
 
+const WorkflowDecisionTree = () => (
+  <motion.section
+    initial={{ opacity: 0, y: 50 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    viewport={{ once: true }}
+    transition={{ duration: 0.6, delay: 0.6 }}
+    id="decision-tree"
+  >
+    <SectionTitle>Workflow Decision Tree</SectionTitle>
+    <GlassCard>
+      <div className="max-w-2xl mx-auto">
+        <FlowNode className="bg-indigo-600 text-white">
+          <strong>What's your primary use case?</strong>
+        </FlowNode>
+        <ArrowDown />
+        
+        <div className="grid md:grid-cols-2 gap-4">
+          <div>
+            <FlowNode className="bg-fuchsia-600 text-white">
+              <strong>Text-Heavy Images</strong><br />
+              (Signs, logos, documents)
+            </FlowNode>
+            <ArrowDown />
+            <FlowNode className="bg-green-600 text-white">
+              ✅ <strong>Choose FLUX.1</strong><br />
+              Superior text generation
+            </FlowNode>
+          </div>
+          
+          <div>
+            <FlowNode className="bg-cyan-600 text-white">
+              <strong>Artistic Images</strong><br />
+              (Portraits, landscapes, art)
+            </FlowNode>
+            <ArrowDown />
+            <FlowNode className="bg-green-600 text-white">
+              ✅ <strong>Choose SDXL</strong><br />
+              Better LoRA ecosystem
+            </FlowNode>
+          </div>
+        </div>
+      </div>
+    </GlassCard>
+  </motion.section>
+);
+
+const RecommendedWorkflows = () => {
+  const workflows = [
+    {
+      title: "FLUX.1 Professional Workflow",
+      model: "FLUX.1-dev",
+      steps: ["Use ComfyUI for workflow control", "Enable fp8 quantization", "Set 20-25 inference steps", "Use CFG scale 1.0"],
+      useCase: "High-quality images with text"
+    },
+    {
+      title: "SDXL Speed Workflow", 
+      model: "SDXL-Lightning",
+      steps: ["Use Automatic1111 WebUI", "Enable xFormers optimization", "Set 4-8 inference steps", "Use DPM++ 2M Karras"],
+      useCase: "Fast artistic generation"
+    }
+  ];
+
+  return (
+    <motion.section
+      initial={{ opacity: 0, y: 50 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.6, delay: 0.8 }}
+      id="workflows"
+    >
+      <SectionTitle>Recommended Workflows</SectionTitle>
+      <div className="grid md:grid-cols-2 gap-8">
+        {workflows.map((workflow, idx) => (
+          <GlassCard key={idx}>
+            <h3 className="text-xl font-bold mb-2 text-indigo-300">{workflow.title}</h3>
+            <p className="text-cyan-400 mb-4">Model: {workflow.model}</p>
+            <ol className="space-y-2 mb-4">
+              {workflow.steps.map((step, i) => (
+                <li key={i} className="text-sm">
+                  <span className="text-fuchsia-400 font-bold">{i + 1}.</span> {step}
+                </li>
+              ))}
+            </ol>
+            <p className="text-green-400 text-sm font-medium">Best for: {workflow.useCase}</p>
+          </GlassCard>
+        ))}
+      </div>
+    </motion.section>
+  );
+};
+
+const ToolkitSection = () => {
+  const categories = [
+    {
+      title: "Essential Models",
+      items: ["FLUX.1-dev (8B params)", "SDXL-Base-1.0", "SDXL-Lightning", "FLUX.1-schnell (distilled)"]
+    },
+    {
+      title: "Performance Boosters", 
+      items: ["xFormers (memory optimization)", "fp8 quantization", "Model offloading", "Batch processing"]
+    },
+    {
+      title: "Advanced Techniques",
+      items: ["LoRA fine-tuning", "ControlNet guidance", "Inpainting workflows", "Multi-model pipelines"]
+    }
+  ];
+
+  return (
+    <motion.section
+      initial={{ opacity: 0, y: 50 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.6, delay: 1.0 }}
+      id="toolkit"
+    >
+      <SectionTitle>Complete Toolkit</SectionTitle>
+      <div className="grid md:grid-cols-3 gap-6">
+        {categories.map((category, idx) => (
+          <GlassCard key={idx}>
+            <h3 className="text-xl font-bold mb-4 text-indigo-300">{category.title}</h3>
+            <ul className="space-y-2">
+              {category.items.map((item, i) => (
+                <li key={i} className="text-sm flex items-start">
+                  <span className="text-fuchsia-400 mr-2">▸</span>
+                  {item}
+                </li>
+              ))}
+            </ul>
+          </GlassCard>
+        ))}
+      </div>
+    </motion.section>
+  );
+};
+
+const FooterSection = () => (
+  <footer className="text-center py-8 mt-16 border-t border-indigo-900/50">
+    <p className="text-indigo-300">
+      Built for AI artists and developers pushing the boundaries of image generation.
+    </p>
+  </footer>
+);
+
 const AiGuide = forwardRef<HTMLElement>((_props, ref) => {
   const [selectedGpu, setSelectedGpu] = useState("NVIDIA RTX 4090 (24GB)");
 
@@ -187,9 +340,13 @@ const AiGuide = forwardRef<HTMLElement>((_props, ref) => {
             <ComparisonTable />
             <HardwarePerformanceEstimator selectedGpu={selectedGpu} setSelectedGpu={setSelectedGpu} />
             <AiPoweredTools />
+            <WorkflowDecisionTree />
+            <RecommendedWorkflows />
+            <ToolkitSection />
           </main>
         </motion.div>
       </div>
+      <FooterSection />
     </section>
   );
 });
