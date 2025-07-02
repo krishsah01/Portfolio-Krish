@@ -6,15 +6,6 @@ interface ProjectsProps {}
 
 const projects = [
   {
-    title: 'GameHub - Interactive Gaming Platform',
-    description: 'A collection of classic games including Snake, Tic-Tac-Toe, Wordle, Rock Paper Scissors, and Hangman. Built with React and modern web technologies.',
-    image: 'https://images.unsplash.com/photo-1511512578047-dfb367046420?q=80&w=2071',
-    techStack: ['React', 'TypeScript', 'Tailwind CSS', 'Framer Motion'],
-    github: 'https://github.com/krishsah01/Portfolio-Krish',
-    live: '#gamehub',
-    isInternal: true
-  },
-  {
     title: 'Ocat – ORAS Simplified',
     description: 'A web application that simplifies the ORAS process, making container registry management more accessible.',
     image: 'https://images.unsplash.com/photo-1607799279861-4dd421887fb3?q=80&w=2070',
@@ -109,27 +100,14 @@ const Projects = forwardRef<HTMLElement, ProjectsProps>((_props, ref) => {
                       >
                         <FaGithub className="mr-1" /> Code
                       </a>
-                      {project.isInternal ? (
-                        <a 
-                          href={project.live}
-                          className="inline-flex items-center text-primary-400 hover:text-primary-300"
-                          onClick={(e) => {
-                            e.preventDefault();
-                            document.querySelector(project.live)?.scrollIntoView({ behavior: 'smooth' });
-                          }}
-                        >
-                          <FaExternalLinkAlt className="mr-1" /> Play
-                        </a>
-                      ) : (
-                        <a 
-                          href={project.live}
-                          target="_blank"
-                          rel="noopener noreferrer" 
-                          className="inline-flex items-center text-primary-400 hover:text-primary-300"
-                        >
-                          <FaExternalLinkAlt className="mr-1" /> Demo
-                        </a>
-                      )}
+                      <a 
+                        href={project.live}
+                        target="_blank"
+                        rel="noopener noreferrer" 
+                        className="inline-flex items-center text-primary-400 hover:text-primary-300"
+                      >
+                        <FaExternalLinkAlt className="mr-1" /> Demo
+                      </a>
                     </div>
                     
                     <motion.div 
