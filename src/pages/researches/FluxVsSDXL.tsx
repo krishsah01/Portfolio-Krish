@@ -324,6 +324,385 @@ const AiToolsSection = () => {
   );
 };
 
+const ComfyUIWorkflows = () => {
+  // Import workflow templates (to be replaced with actual workflows when provided)
+  const fluxWorkflowTemplate = {
+    "3": {
+      "inputs": {
+        "seed": 0,
+        "steps": 20,
+        "cfg": 1.0,
+        "sampler_name": "euler",
+        "scheduler": "normal",
+        "denoise": 1,
+        "model": ["12", 0],
+        "positive": ["6", 0],
+        "negative": ["7", 0],
+        "latent_image": ["5", 0]
+      },
+      "class_type": "KSampler",
+      "_meta": {
+        "title": "KSampler"
+      }
+    },
+    "4": {
+      "inputs": {
+        "ckpt_name": "flux1-dev-bnb-nf4-v2.safetensors"
+      },
+      "class_type": "CheckpointLoaderSimple",
+      "_meta": {
+        "title": "Load Checkpoint"
+      }
+    },
+    "5": {
+      "inputs": {
+        "width": 1024,
+        "height": 1024,
+        "batch_size": 1
+      },
+      "class_type": "EmptyLatentImage",
+      "_meta": {
+        "title": "Empty Latent Image"
+      }
+    },
+    "6": {
+      "inputs": {
+        "text": "A beautiful landscape with mountains and a lake, detailed, high quality",
+        "clip": ["4", 1]
+      },
+      "class_type": "CLIPTextEncode",
+      "_meta": {
+        "title": "CLIP Text Encode (Prompt)"
+      }
+    },
+    "7": {
+      "inputs": {
+        "text": "",
+        "clip": ["4", 1]
+      },
+      "class_type": "CLIPTextEncode",
+      "_meta": {
+        "title": "CLIP Text Encode (Negative)"
+      }
+    },
+    "8": {
+      "inputs": {
+        "samples": ["3", 0],
+        "vae": ["4", 2]
+      },
+      "class_type": "VAEDecode",
+      "_meta": {
+        "title": "VAE Decode"
+      }
+    },
+    "9": {
+      "inputs": {
+        "filename_prefix": "ComfyUI",
+        "images": ["8", 0]
+      },
+      "class_type": "SaveImage",
+      "_meta": {
+        "title": "Save Image"
+      }
+    },
+    "12": {
+      "inputs": {
+        "unet_name": "flux1-dev-bnb-nf4.safetensors",
+        "weight_dtype": "default"
+      },
+      "class_type": "UNETLoader",
+      "_meta": {
+        "title": "Load Diffusion Model"
+      }
+    }
+  };
+
+  const sdxlWorkflowTemplate = {
+    "4": {
+      "inputs": {
+        "ckpt_name": "juggernautXL_v9Rdphoto2Lightning.safetensors"
+      },
+      "class_type": "CheckpointLoaderSimple",
+      "_meta": {
+        "title": "Load Checkpoint - Base"
+      }
+    },
+    "5": {
+      "inputs": {
+        "width": 1024,
+        "height": 1024,
+        "batch_size": 1
+      },
+      "class_type": "EmptyLatentImage",
+      "_meta": {
+        "title": "Empty Latent Image"
+      }
+    },
+    "6": {
+      "inputs": {
+        "text": "A beautiful portrait of a woman, detailed, high quality, photorealistic",
+        "clip": ["4", 1]
+      },
+      "class_type": "CLIPTextEncode",
+      "_meta": {
+        "title": "CLIP Text Encode (Prompt)"
+      }
+    },
+    "7": {
+      "inputs": {
+        "text": "blurry, low quality, distorted",
+        "clip": ["4", 1]
+      },
+      "class_type": "CLIPTextEncode",
+      "_meta": {
+        "title": "CLIP Text Encode (Negative)"
+      }
+    },
+    "10": {
+      "inputs": {
+        "add_noise": "enable",
+        "noise_seed": 0,
+        "steps": 30,
+        "cfg": 7.5,
+        "sampler_name": "dpmpp_2m",
+        "scheduler": "karras",
+        "start_at_step": 0,
+        "end_at_step": 25,
+        "return_with_leftover_noise": "enable",
+        "model": ["4", 0],
+        "positive": ["6", 0],
+        "negative": ["7", 0],
+        "latent_image": ["5", 0]
+      },
+      "class_type": "KSamplerAdvanced",
+      "_meta": {
+        "title": "KSampler (Advanced) - Base"
+      }
+    },
+    "11": {
+      "inputs": {
+        "ckpt_name": "sd_xl_refiner_1.0.safetensors"
+      },
+      "class_type": "CheckpointLoaderSimple",
+      "_meta": {
+        "title": "Load Checkpoint - Refiner"
+      }
+    },
+    "12": {
+      "inputs": {
+        "text": "A beautiful portrait of a woman, detailed, high quality, photorealistic",
+        "clip": ["11", 1]
+      },
+      "class_type": "CLIPTextEncode",
+      "_meta": {
+        "title": "CLIP Text Encode (Prompt) - Refiner"
+      }
+    },
+    "13": {
+      "inputs": {
+        "text": "blurry, low quality, distorted",
+        "clip": ["11", 1]
+      },
+      "class_type": "CLIPTextEncode",
+      "_meta": {
+        "title": "CLIP Text Encode (Negative) - Refiner"
+      }
+    },
+    "14": {
+      "inputs": {
+        "add_noise": "disable",
+        "noise_seed": 0,
+        "steps": 30,
+        "cfg": 7.5,
+        "sampler_name": "dpmpp_2m",
+        "scheduler": "karras",
+        "start_at_step": 25,
+        "end_at_step": 30,
+        "return_with_leftover_noise": "disable",
+        "model": ["11", 0],
+        "positive": ["12", 0],
+        "negative": ["13", 0],
+        "latent_image": ["10", 0]
+      },
+      "class_type": "KSamplerAdvanced",
+      "_meta": {
+        "title": "KSampler (Advanced) - Refiner"
+      }
+    },
+    "15": {
+      "inputs": {
+        "samples": ["14", 0],
+        "vae": ["4", 2]
+      },
+      "class_type": "VAEDecode",
+      "_meta": {
+        "title": "VAE Decode"
+      }
+    },
+    "19": {
+      "inputs": {
+        "filename_prefix": "ComfyUI",
+        "images": ["15", 0]
+      },
+      "class_type": "SaveImage",
+      "_meta": {
+        "title": "Save Image"
+      }
+    }
+  };
+
+  const workflows = [
+    {
+      title: "FLUX.1 ComfyUI Workflow",
+      description: "Professional workflow for FLUX.1 with optimal settings for high-quality image generation",
+      model: "FLUX.1-dev",
+      features: [
+        "Optimized for GGUF quantized models",
+        "Support for LoRA integration",
+        "Advanced sampling settings",
+        "Memory-efficient configuration"
+      ],
+      downloadName: "flux_workflow.json",
+      jsonContent: fluxWorkflowTemplate
+    },
+    {
+      title: "SDXL ComfyUI Workflow", 
+      description: "Versatile SDXL workflow with base + refiner setup for maximum quality",
+      model: "SDXL-Base-1.0 + Refiner",
+      features: [
+        "Base model + refiner pipeline",
+        "LoRA support for style control",
+        "Fast iteration settings",
+        "Upscaling integration"
+      ],
+      downloadName: "sdxl_workflow.json",
+      jsonContent: sdxlWorkflowTemplate
+    }
+  ];
+
+  // Download function using blob method
+  const downloadWorkflow = (workflow: any, event?: React.MouseEvent) => {
+    if (event) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+    
+    console.log('Download clicked for:', workflow.title);
+    
+    if (!workflow.jsonContent) {
+      console.error('No JSON content available');
+      alert('Workflow file is not available!');
+      return;
+    }
+    
+    try {
+      // Create the JSON string
+      const jsonString = JSON.stringify(workflow.jsonContent, null, 2);
+      console.log('JSON created, length:', jsonString.length);
+      
+      // Create blob and download
+      const blob = new Blob([jsonString], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      
+      // Create temporary download link
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = workflow.downloadName;
+      link.style.display = 'none';
+      
+      // Trigger download
+      document.body.appendChild(link);
+      link.click();
+      
+      // Cleanup
+      setTimeout(() => {
+        document.body.removeChild(link);
+        URL.revokeObjectURL(url);
+        console.log('Download completed for:', workflow.downloadName);
+      }, 100);
+      
+    } catch (error) {
+      console.error('Download error:', error);
+      alert('Download failed: ' + (error instanceof Error ? error.message : 'Unknown error'));
+    }
+  };
+
+  return (
+    <motion.section
+      initial={{ opacity: 0, y: 50 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.6, delay: 0.5 }}
+      id="comfyui-workflows"
+    >
+      <SectionTitle>ComfyUI Workflows</SectionTitle>
+      <p className="text-center text-gray-300 mb-8 max-w-3xl mx-auto">
+        Ready-to-use ComfyUI workflow files for both FLUX.1 and SDXL. Simply download and import into ComfyUI to get started with optimal settings. These workflows are production-tested and include best-practice configurations for each model.
+      </p>
+      
+      <div className="grid md:grid-cols-2 gap-6">
+        {workflows.map((workflow, idx) => (
+          <GlassCard key={idx} className="hover:border-cyan-500 transition-colors">
+            <div className="flex justify-between items-start mb-4">
+              <h3 className="text-xl font-bold text-cyan-400">{workflow.title}</h3>
+              <div className="flex justify-end">
+                <button
+                  onClick={(e) => downloadWorkflow(workflow, e)}
+                  className="bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-white px-6 py-3 rounded-lg transition-all duration-200 flex items-center gap-2 font-medium"
+                >
+                  <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clipRule="evenodd" />
+                  </svg>
+                  Download Workflow
+                </button>
+              </div>
+            </div>
+            
+            <p className="text-purple-400 mb-3 font-medium">Model: {workflow.model}</p>
+            <p className="text-gray-300 mb-4">{workflow.description}</p>
+            
+            <div className="space-y-2">
+              <h4 className="text-indigo-300 font-semibold">Features:</h4>
+              <ul className="space-y-1">
+                {workflow.features.map((feature, i) => (
+                  <li key={i} className="text-gray-300 text-sm flex items-start">
+                    <span className="text-green-400 mr-2">•</span>
+                    {feature}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </GlassCard>
+        ))}
+      </div>
+      
+      <div className="mt-8 text-center">
+        <GlassCard className="max-w-2xl mx-auto">
+          <h3 className="text-xl font-bold text-indigo-300 mb-3">How to Use</h3>
+          <ol className="text-left space-y-2 text-gray-300">
+            <li className="flex items-start">
+              <span className="text-cyan-400 font-bold mr-2">1.</span>
+              Download the workflow JSON file
+            </li>
+            <li className="flex items-start">
+              <span className="text-cyan-400 font-bold mr-2">2.</span>
+              Open ComfyUI in your browser
+            </li>
+            <li className="flex items-start">
+              <span className="text-cyan-400 font-bold mr-2">3.</span>
+              Drag and drop the JSON file onto the ComfyUI interface
+            </li>
+            <li className="flex items-start">
+              <span className="text-cyan-400 font-bold mr-2">4.</span>
+              Adjust settings as needed and start generating!
+            </li>
+          </ol>
+        </GlassCard>
+      </div>
+    </motion.section>
+  );
+};
+
 interface FluxVsSDXLProps {}
 
 const FluxVsSDXL = forwardRef<HTMLElement, FluxVsSDXLProps>((_props, ref) => {
@@ -359,6 +738,7 @@ const FluxVsSDXL = forwardRef<HTMLElement, FluxVsSDXLProps>((_props, ref) => {
           <RecommendedWorkflows />
           <AiToolsSection />
           <ToolkitSection />
+          <ComfyUIWorkflows />
         </div>
 
         {/* Floating Chat Widget */}

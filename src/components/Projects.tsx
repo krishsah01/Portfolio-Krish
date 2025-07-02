@@ -13,7 +13,7 @@ const projects = [
     image: 'https://images.unsplash.com/photo-1511512578047-dfb367046420?q=80&w=2071',
     techStack: ['React', 'TypeScript', 'Tailwind CSS', 'Framer Motion'],
     github: 'https://github.com/krishsah01/GameHub',
-    live: '#' // Will be updated with GitHub Pages link later
+    live: 'https://krishsah01.github.io/GameHub/login' // Will be updated with GitHub Pages link later
   },
   {
     title: 'Ocat – ORAS Simplified',
