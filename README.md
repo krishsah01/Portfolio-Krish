@@ -72,7 +72,9 @@ The portfolio includes the following sections:
 - **Skills Section**: Displays programming languages, frameworks, and tools.
 - **Contact Section**: A simple form for users to get in touch.
 - **Research Section**: Features research topics and technical analysis:
-  - FLUX.1 vs SDXL AI image generation comparison
+  - FLUX.1 vs SDXL AI image generation comparison with ComfyUI workflows
+  - Interactive hardware performance estimators
+  - Downloadable ComfyUI workflow templates
   - Future research topics will be added here
 
 ## Adding New Research Content
@@ -84,6 +86,27 @@ To add new research topics to the portfolio:
 3. Follow the existing patterns for consistent styling and navigation
 
 See `src/pages/researches/README.md` for detailed instructions.
+
+## ComfyUI Workflows
+
+The portfolio now includes downloadable ComfyUI workflow files for AI image generation:
+
+### Current Workflows
+- **FLUX.1 Workflow**: Optimized for high-quality image generation with GGUF models
+- **SDXL Workflow**: Base + refiner pipeline for versatile image creation
+
+### Managing Workflows
+- Template files are located in `src/assets/workflows/`
+- Workflows are embedded in the FluxVsSDXL research component
+- Use the update script: `src/assets/workflows/update_workflows.sh`
+
+### Adding New Workflows
+1. Validate your ComfyUI workflow JSON file
+2. Replace the template content in `src/pages/researches/FluxVsSDXL.tsx`
+3. Update workflow descriptions and features
+4. Test download functionality
+
+For detailed instructions, see `src/assets/workflows/README.md`.
 
 ## License
 
