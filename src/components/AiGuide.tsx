@@ -1,5 +1,6 @@
 import { forwardRef, useState } from 'react';
 import { motion } from 'framer-motion';
+import ChatbotWidget from './ChatbotWidget';
 
 // --- Reusable Components ---
 
@@ -347,6 +348,7 @@ const AiGuide = forwardRef<HTMLElement>((_props, ref) => {
         </motion.div>
       </div>
       <FooterSection />
+      <ChatbotWidget />
     </section>
   );
 });
