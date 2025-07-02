@@ -4,6 +4,8 @@ import { FaGithub, FaExternalLinkAlt } from 'react-icons/fa';
 
 interface ProjectsProps {}
 
+// Projects array - GameHub is the first project
+// TODO: Update GameHub live link when GitHub Pages URL is available
 const projects = [
   {
     title: 'GameHub - Interactive Gaming Platform',
